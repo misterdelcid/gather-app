@@ -1,0 +1,51 @@
+body {
+  background-color: #fff;
+}
+
+.App-container {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 50px 200px auto;
+  grid-template-rows: 90px auto 90px;
+  grid-template-areas:
+  "header header header"
+  "side-nav side-preview main"
+  "footer footer footer"
+}
+
+.header {
+  display: flex;
+  grid-area: header;
+  flex-direction: row;
+  align-items: center;
+  div {
+    margin:0 0 0 15px;
+  }
+  h1, p {
+    margin:0;
+  }
+}
+
+.sidebar-nav {
+  display: grid;
+  grid-area: side-nav
+}
+
+.sidebar-preview {
+  display: grid;
+  grid-area: side-preview;
+}
+
+.main {
+  display: grid;
+  grid-area: main;
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.footer {
+  display: grid;
+  grid-area: footer;
+}
