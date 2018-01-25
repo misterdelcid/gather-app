@@ -15,18 +15,6 @@ import getVisiblePosts from './selectors/posts';
 
 const store = configureStore();
 
-store.dispatch(addEntry({title: '1st Post', entry: 'first post', createdAt: 0}))
-store.dispatch(addEntry({title: '2nd Post', entry: 'second post', createdAt: 2000 }));
-store.dispatch(addEntry({title: '3rd Post', entry: 'third post', createdAt: 3000 }));
-
-const state = store.getState();
-
-const visiblePosts = getVisiblePosts(state.posts, state.filters);
-
-console.log(visiblePosts);
-console.log(state);
-
-
 const jsx = (
   <Provider store={store}>
     <AppRouter />
