@@ -8,12 +8,15 @@ const PostListFilters = props => (
   <div>
     <input
       type="text"
+      className="searchbar"
+      placeholder="Search"
+      autoFocus
       value={props.filters.text}
       onChange={e => {
         props.dispatch(setTextFilter(e.target.value));
       }}
     />
-    <select
+    {/* <select
       value={props.filters.sortBy}
       onChange={e => {
         const value = e.target.value === 'category' ? props.dispatch(sortByCategory()): props.dispatch(sortByDate());
@@ -21,7 +24,7 @@ const PostListFilters = props => (
     >
       <option value="date">Date</option>
       <option value="category">Category</option>
-    </select>
+    </select> */}
   </div>
 );
 

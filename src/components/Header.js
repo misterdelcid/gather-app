@@ -3,10 +3,9 @@ import '../App.css';
 
 const Header = () =>
       <header className="header">
-        <i class="fa fa-3x fa-paper-plane-o" aria-hidden="true"></i>
+        <i className="fa fa-2x fa-paper-plane-o" aria-hidden="true"></i>
         <div>
-          <h1>Title</h1>
-          <p>Tagline...</p>
+          <h1>ReFlect</h1>
         </div>
       </header>;
 

@@ -1,31 +1,40 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PostForm from './PostForm';
-import { editEntry, removeEntry } from '../actions/posts';
+import { startRemovePost, startEditPost } from '../actions/posts';
 import '../App.css';
 
-const editPostPage = props => (
-  <div>
-    <h1>Edit Post</h1>
+const EditPostPage = props => (
+  <div className="main">
     <PostForm
       post={props.post}
       onSubmit={post=> {
-        props.dispatch(editEntry(props.post.id, post));
+        props.startEditPost(props.post.id, post);
+        props.history.push('/');
+      }}
+      onCancel={e => {
+        e.preventDefault();
+        props.history.push('/');
+      }}
+      onDelete={e => {
+        props.startRemovePost({ id: props.post.id });
         props.history.push('/');
       }}
     />
-    <button
-      onClick={post => {
-      props.dispatch(removeEntry({id: props.post.id}));
+    {/* <button className="remove-button" onClick={() => {
+      props.startRemovePost({ id: props.post.id });
       props.history.push('/');
-    }}>Remove</button>
+    }}>Remove</button> */}
   </div>
 );
 
-const mapStateToProps = (state, props) => {
-  return {
+const mapStateToProps = (state, props) => ({
     post: state.posts.find((post) => post.id === props.match.params.id)
-  };
-};
+  });
 
-export default connect(mapStateToProps)(editPostPage);
+const mapDispatchToProps = (dispatch, props) => ({
+  startEditPost: (id, post) => dispatch(startEditPost(id, post)),
+  startRemovePost: (data) => dispatch(startRemovePost(data))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditPostPage);

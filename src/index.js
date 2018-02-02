@@ -3,23 +3,32 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
 import './index.css';
-import AppRouter from './routers/AppRouter';
+import App from './routers/App';
 import registerServiceWorker from './registerServiceWorker';
+import './firebase/firebase';
 
 //Actions
-import { addEntry } from './actions/posts';
-import { removeEntry } from './actions/posts';
-import { editEntry } from './actions/posts';
-import { setTextFilter } from './actions/filters';
-import getVisiblePosts from './selectors/posts';
+import { startSetPosts } from './actions/posts';
 
 const store = configureStore();
 
 const jsx = (
   <Provider store={store}>
-    <AppRouter />
+    <App />
   </Provider>
 );
 
-ReactDOM.render(jsx, document.getElementById('root'));
-registerServiceWorker();
+ReactDOM.render(
+  <div className="loading-page">
+    <img src="./logo-small.png" className="loading-logo" alt="logo" />
+  <div className="loading">
+    <div className="dot dot-1"></div>
+    <div className="dot dot-2"></div>
+    <div className="dot dot-3"></div>
+  </div>
+</div>, document.getElementById('root'));
+
+store.dispatch(startSetPosts()).then(() => {
+  ReactDOM.render(jsx, document.getElementById('root'));
+  registerServiceWorker();
+});

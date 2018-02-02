@@ -1,51 +1,373 @@
+/*
+Variables
+*/
+
+//Colors
+// $primary-gray: #272727;
+$primary-gray: #212121;
+$primary-light: lighten($primary-gray, 2.5%);
+$primary-lighter: lighten($primary-gray, 10%);
+$primary-lightest: lighten($primary-gray, 30%);
+$primary-dark: darken($primary-gray, 2.5%);
+$primary-darker: darken($primary-gray, 10%);
+
+$primary-color: #00BCD4;
+$primary-color-light: lighten($primary-color, 15%);
+$primary-color-dark: darken($primary-color, 15%);
+
+//Fonts
+$primary-font: "Roboto", "Arial";
+
+/*
+General Styles
+*/
+
 body {
-  background-color: #fff;
+  background-color: $primary-gray;
+  color: #fff;
+  font-family: $primary-font;
 }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $primary-font;
+  font-weight: 300;
+  margin: 10px 0;
+}
+
+button {
+  background-color: lighten($primary-lightest, 30%);
+  padding: 5px 15px;
+  border-radius: 3px;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  transition: .35s;
+}
+
+button:hover {
+  background-color: $primary-lightest;
+  transition: .35s;
+}
+
+.delete-button {
+  background-color: #d9534f;
+  color:#fff;
+  margin-left: 10px;
+}
+
+.delete-button:hover {
+  background-color: darken(#d9534f, 15%);
+  transition: .35s;
+}
+
+.action-button {
+  background-color: $primary-color;
+  color:#fff;
+  margin-left: 10px;
+}
+
+.action-button:hover {
+  background-color: darken($primary-color, 15%);
+  transition: .35s;
+}
+
+/*
+CSS Grid
+*/
 
 .App-container {
   height: 100vh;
   display: grid;
-  grid-template-columns: 50px 200px auto;
-  grid-template-rows: 90px auto 90px;
+  grid-template-columns: 75px auto;
+  grid-template-rows: 60px auto;
   grid-template-areas:
-  "header header header"
-  "side-nav side-preview main"
-  "footer footer footer"
+  "sidebar-nav main"
+  "sidebar-nav main"
 }
 
-.header {
+//Loading Page
+
+.loading-page {
+  background-color: #212121;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   display: flex;
-  grid-area: header;
-  flex-direction: row;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
   align-items: center;
-  div {
-    margin:0 0 0 15px;
+}
+
+.loading {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height:10px;
+  width: 100px;
+  margin-top: 50px;
+  .dot {
+    background-color: #fff;
+    margin-left: 7px;
+    width: 15px;
+    height: 15px;
+    border-radius: 30px;
   }
-  h1, p {
-    margin:0;
+  .dot-1 {
+    animation-name: loading;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+  }
+  .dot-2 {
+    animation-name: loading;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-delay: .05s;
+  }
+  .dot-3 {
+    animation-name: loading;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-delay: .1s;
+  }
+}
+
+@keyframes loading {
+  15% {margin-bottom: 0px;}
+  30% {margin-bottom: 30px;}
+  65% {margin-bottom: 0px;}
+}
+
+.loading-logo {
+  height: 138px;
+}
+
+/*
+Sidebar Navigation
+*/
+
+.sidebar-nav {
+  display: grid;
+  grid-area: sidebar-nav;
+  background-color: $primary-dark;
+  .logo {
+    height: 50px;
+    margin-bottom: 5px;
+  }
+  .logo-title {
+    color:#fff;
+    margin-bottom: 30px;
+  }
+  ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    list-style: none;
+    margin: 0;
+    padding:0;
+    li {
+      display: flex;
+      justify-content: center;
+      margin: 15px 15px;
+    }
   }
 }
 
 .sidebar-nav {
-  display: grid;
-  grid-area: side-nav
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: $primary-lightest;
+  font-size: 2.5rem;
+  text-decoration: none;
+  transition: .35s;
+  span {
+    margin-top:7px;
+    font-size: .7rem;
+    opacity: .33;
+    text-align: center;
+  }
 }
+
+.sidebar-nav:hover {
+  color: #fff;
+  transition: .35s;
+}
+
+.sidebar-nav-active {
+  color: #fff;
+}
+
+/*
+Sidebar Preview
+*/
 
 .sidebar-preview {
   display: grid;
-  grid-area: side-preview;
+  grid-area: sidebar-preview;
+  overflow-y: hidden;
 }
+
+.post-hover-overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin-top: -135px;
+  height: 135px;
+  width: 100%;
+  z-index: 2;
+  opacity: 0;
+  transition: .35s;
+  font-size: 1.25rem;
+  color: $primary-gray;
+  span {
+    margin-left: 7px;
+    font-size: 1rem;
+    font-weight: 500;
+    opacity: 1;
+  }
+}
+
+.post-hover-overlay:hover {
+  background-color: $primary-color;
+  opacity: .85;
+  transition: .35s;
+}
+
+.post-list-item {
+  background-color: transparent;
+  border-bottom: 1px solid $primary-dark;
+  padding: 15px 0px;
+  height: 105px;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  h3, p {
+    color:#fff;
+    text-decoration: none;
+    margin:0;
+  }
+  .post-title {
+    font-weight: 300;
+    padding-bottom: 2.5px;
+  }
+  .post-date, .post-entry {
+    font-weight: 500;
+    font-size: .9rem;
+    color: $primary-lightest;
+  }
+  .post-date {
+    padding-bottom: 10px;
+    font-size: .85rem;
+  }
+}
+
+.searchbar {
+  background-color: $primary-gray;
+  border: none;
+  font-family: $primary-font;
+  margin: 15px 30px;
+  outline: none;
+  font-size: 2rem;
+  font-weight: 300;
+  color: $primary-color;
+  width: 86%;
+  }
+
+//Scrollbar
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: $primary-gray;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $primary-light;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: $primary-dark;
+}
+
+/*
+Main
+*/
 
 .main {
   display: grid;
   grid-area: main;
-  form {
+  margin: 15px 30px;
+  flex-direction: column;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  .form-buttons {
     display: flex;
-    flex-direction: column;
+    justify-content: flex-end;
+  }
+  input, textarea {
+    background-color: $primary-gray;
+    border: none;
+    outline: none;
+    font-family: $primary-font;
+  }
+  input {
+    font-size: 2rem;
+    font-weight: 300;
+    color: $primary-color;
+  }
+  input::placeholder {
+    color: $primary-color-dark;
+  }
+  textarea {
+    margin:15px 0px;
+    font-size: 1.3rem;
+    height:300px;
+    resize: none;
+    color: $primary-lightest;
+  }
+  textarea::placeholder {
+    color: $primary-lighter;
   }
 }
 
-.footer {
-  display: grid;
-  grid-area: footer;
+.remove-button {
+  background-color: transparent;
+  font-size: 2rem;
+  height: 50px;
+  color: red;
+  opacity: 1;
+}
+
+//Modal
+.overlay_after-open {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top:0;
+  right:0;
+  bottom:0;
+  left:0;
+  background-color: rgba(0,0,0,0.75);
+}
+
+.content_after-open {
+  padding: 40px;
+  border-radius: 15px;
+  background-color: $primary-lighter;
+  outline: none;
+  opacity: 1;
+  transition: 2s;
 }

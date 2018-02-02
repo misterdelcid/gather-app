@@ -2,7 +2,7 @@
 
 const getVisiblePosts = (posts, {text, sortBy}) => {
   return posts.filter((post) => {
-    const textMatch = post.entry.toLowerCase().includes(text.toLowerCase());
+    const textMatch = post.title.toLowerCase().includes(text.toLowerCase()) || post.post.toLowerCase().includes(text.toLowerCase());
     return textMatch;
   })
   .sort((a, b) => {
